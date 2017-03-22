@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-
-import { Events, MenuController, Nav, Platform } from 'ionic-angular';
+import { Geolocation} from 'ionic-native';
+import { Events, MenuController, Nav, Platform} from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
@@ -14,6 +14,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { SupportPage } from '../pages/support/support';
+import { RoadmapPage } from '../pages/roadmap/roadmap';
+
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
@@ -41,8 +43,10 @@ export class ConferenceApp {
   appPages: PageInterface[] = [
     { title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar' },
     { title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts' },
-    { title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
-    { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
+    // { title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
+    { title: 'RoadMap', component: TabsPage, tabComponent: RoadmapPage, index: 2, icon: 'information-circle' },
+    { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' },
+    
   ];
   loggedInPages: PageInterface[] = [
     { title: 'Account', component: AccountPage, icon: 'person' },
