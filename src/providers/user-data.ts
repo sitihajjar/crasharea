@@ -48,6 +48,17 @@ export class UserData {
     this.events.publish('user:logout');
   };
 
+   setId(id:string) {
+    this.storage.set('id', id);
+  };
+
+
+  getId() {
+    return this.storage.get('id').then((data:any)=>{
+      return data;
+    });
+  };
+
   setUsername(username: string) {
     this.storage.set('username', username);
   };

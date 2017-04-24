@@ -37,6 +37,7 @@ export class RoadmapPage {
 
   ionViewDidLoad() {
     this.getCurrentPosition();
+    this.setHotspotsPosition();
     this.start();
   }
 
@@ -46,7 +47,7 @@ export class RoadmapPage {
         this.lat = parseFloat(lat);
         this.lng = parseFloat(lng);
 
-        this.setHotspotsPosition();
+        //this.setHotspotsPosition();
         this.setCurrentPosition(this.lat, this.lng);
         this.determineStatus();
         this.globalService.toast(this.lat + ", " + this.lng).present();
@@ -59,8 +60,9 @@ export class RoadmapPage {
   }
 
   initMap() {
+    this.mapEle = this.mapElement.nativeElement;
+
     this.getCurrentPosition().subscribe((data:any)=> {
-      this.mapEle = this.mapElement.nativeElement;
       this.latLng = new google.maps.LatLng(data.lat.toString(), data.lng.toString());
 
       this.map = new google.maps.Map(this.mapEle, {
@@ -136,9 +138,10 @@ export class RoadmapPage {
   }
 
   setHotspotsPosition() {
+    this.mapEle = this.mapElement.nativeElement;
+
     this.locationTracker.getHotspots().subscribe((data:any)=> {
-      this.mapEle = this.mapElement.nativeElement;
-      var infowindow = new google.maps.InfoWindow();
+      //var infowindow = new google.maps.InfoWindow();
       var marker:any, i:any;
 
       data.forEach((location:any)=> {
@@ -149,12 +152,12 @@ export class RoadmapPage {
           icon: this.icons.carCrash
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+        /*google.maps.event.addListener(marker, 'click', (function (marker, i) {
           return function () {
             infowindow.setContent("Crash Area");
             infowindow.open(this.map, marker);
           }
-        })(marker, i));
+        })(marker, i));*/
       });
     }, (error:any)=> {
       console.log(error);
@@ -176,7 +179,7 @@ export class RoadmapPage {
 
         var distance = this.locationTracker.getDistance(position1, position2);
         // trigger notification if distance below limit
-        if (distance < 10) {// 10 meter
+        if (distance < 1000) {// 1000 meter
           this.localNotifications.schedule({
             id: 1,
             text: 'Be careful, You are approaching the accident area.',

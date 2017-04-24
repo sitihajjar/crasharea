@@ -66,6 +66,54 @@ export class GlobalService {
     return this.modalCtrl.create(ModalPage, {title: title, data: data});
   }
 
+  signup(signup:any){
+    // console.log(login);
+    return Observable.create((observer:any) => {
+      // At this point make a request to your backend to make a real check!
+      var requestData = ({
+        username: signup.username,
+        password: signup.password,
+        email: "hajjar@email.com",
+      });
+      // let headers = new Headers({'Content-Type': 'application/json'});
+      // let options = new RequestOptions({headers: headers});
+      this.http.post("https://crashalert.cryptical.tech/register.php", requestData/*, options*/)
+        .subscribe((responseData:any) => {
+          console.log(responseData);
+          observer.next(responseData.json());
+          observer.complete();
+        }, (error:any) => {
+          observer.next(error);
+          observer.complete();
+          console.log(error);
+        });
+    });
+  }
+
+  login(login:any){
+    // console.log(login);
+    return Observable.create((observer:any) => {
+      // At this point make a request to your backend to make a real check!
+      var requestData = ({
+        username: login.username,
+        password: login.password,
+      });
+      // let headers = new Headers({'Content-Type': 'application/json'});
+      // let options = new RequestOptions({headers: headers});
+      this.http.post("https://crashalert.cryptical.tech/login.php", requestData/*, options*/)
+        .subscribe((responseData:any) => {
+          console.log(responseData);
+          observer.next(responseData.json());
+          observer.complete();
+        }, (error:any) => {
+          observer.next(error);
+          observer.complete();
+          console.log(error);
+        });
+    });
+  }
+
+
   getDateFromFormat(format:string = 'd MMM y', date:Date = new Date()):string {
     return this.datePipeMy.transform(date, format);
   }

@@ -15,10 +15,10 @@ import {RoadmapPage} from "../roadmap/roadmap";
 export class TabsPage {
   // set the root pages for each tab
   tab1Root: any = SchedulePage;
-  tab2Root: any = SpeakerListPage;
+  // tab2Root: any = SpeakerListPage;
   // tab3Root: any = MapPage;
-  tab3Root: any = RoadmapPage;
-  tab4Root: any = AboutPage;
+  tab2Root: any = RoadmapPage;
+  tab3Root: any = AboutPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {
