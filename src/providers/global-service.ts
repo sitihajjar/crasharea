@@ -6,6 +6,7 @@ import {LoadingController, AlertController, ToastController, ModalController} fr
 import {Geolocation} from 'ionic-native';
 import {ModalPage} from "../pages/modal/modal";
 import 'rxjs/add/operator/map';
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class GlobalService {
