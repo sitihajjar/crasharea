@@ -55,7 +55,7 @@ export class RoadmapPage {
 
       this.mapEle = this.mapElement.nativeElement;
       this.map = new google.maps.Map(this.mapEle, mapOptions);
-      this.latLng = new google.maps.LatLng(data.lat.toString(), data.lng.toString());
+      this.latLng = new google.maps.LatLng(data.lat, data.lng);
 
       this.locations = [
         ['You', data.lat, data.lng, 1]
@@ -194,6 +194,7 @@ export class RoadmapPage {
   getCurrentPosition() {
     return Observable.create((observer:any)=> {
       Geolocation.getCurrentPosition().then((position) => {
+          console.log("position", position);
           observer.next({lat: position.coords.latitude, lng: position.coords.longitude});
           observer.complete();
         },
