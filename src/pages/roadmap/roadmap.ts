@@ -57,9 +57,7 @@ export class RoadmapPage {
       this.map = new google.maps.Map(this.mapEle, mapOptions);
       this.latLng = new google.maps.LatLng(data.lat, data.lng);
 
-      this.locations = [
-        ['You', data.lat, data.lng, 1]
-      ];
+      this.locations.push(['You', data.lat, data.lng, 999, this.icons.blueDot]);
       // Call set markers to re-add markers
       this.setMarkers(this.locations);
 
@@ -77,7 +75,7 @@ export class RoadmapPage {
         animation: google.maps.Animation.DROP,
         title: location[0],
         zIndex: location[3],
-        icon: this.icons.blueDot
+        icon: location[4]
       });
 
       // Push marker to markers array
@@ -95,7 +93,7 @@ export class RoadmapPage {
     this.markers = [];
 
     // this.getCurrentPosition().subscribe((data:any)=> {
-      this.latLng = new google.maps.LatLng(this.lat.toString(), this.lng.toString());
+    this.latLng = new google.maps.LatLng(this.lat.toString(), this.lng.toString());
 
     /*var locations = [
      ['You', data.lat, data.lng, 1]
@@ -115,8 +113,9 @@ export class RoadmapPage {
         //this.setHotspotsPosition();
         // this.setCurrentPosition(this.lat, this.lng);
         this.locations = [
-          ['You', this.lat, this.lng, 999]
+          ['You', this.lat, this.lng, 999, this.icons.blueDot]
         ];
+        this.setHotspotsPosition();
         this.reloadMarkers();
         this.determineStatus();
         this.globalService.toast(this.lat + ", " + this.lng).present();
@@ -211,18 +210,20 @@ export class RoadmapPage {
     this.mapEle = this.mapElement.nativeElement;
 
     this.locationTracker.getHotspots().subscribe((data:any)=> {
-      //var infowindow = new google.maps.InfoWindow();
+      var infowindow = new google.maps.InfoWindow();
       var marker:any, i:any;
 
       data.forEach((location:any)=> {
+        this.locations.push(['Site ' + location.latitude + "," + location.longitude, location.latitude, location.longitude, 1, this.icons.carCrash]);
+        // Call set markers to re-add markers
         // console.log(location.latitude, location.longitude);
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(location.latitude, location.longitude),
-          map: this.map,
-          icon: this.icons.carCrash
-        });
+        /*marker = new google.maps.Marker({
+         position: new google.maps.LatLng(location.latitude, location.longitude),
+         map: this.map,
+         icon: this.icons.carCrash
+         });
 
-        /*google.maps.event.addListener(marker, 'click', (function (marker, i) {
+         google.maps.event.addListener(marker, 'click', (function (marker, i) {
          return function () {
          infowindow.setContent("Crash Area");
          infowindow.open(this.map, marker);
@@ -232,6 +233,9 @@ export class RoadmapPage {
     }, (error:any)=> {
       console.log(error);
     });
+
+    this.setMarkers(this.locations);
+
   }
 
   determineStatus() {
