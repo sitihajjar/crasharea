@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar no-border-bottom>
+  <ion-navbar  no-border-bottom color="purplish"> 
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,9 +7,9 @@
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="all">
         All
-      </ion-segment-button>
+      <!--</ion-segment-button>
       <ion-segment-button value="favorites">
-        Favorites
+        Favorites-->
       </ion-segment-button>
     </ion-segment>
 
@@ -20,13 +20,13 @@
     </ion-buttons>
   </ion-navbar>
 
-  <ion-toolbar no-border-top>
+ <!-- <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
                    (ionInput)="updateSchedule()"
                    placeholder="Search">
     </ion-searchbar>
-  </ion-toolbar>
+  </ion-toolbar>-->
 </ion-header>
 
 <ion-content>
@@ -51,10 +51,10 @@
           </p>
         </button>
 
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
+      <ion-item-options>
+          <!--<button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
             Favorite
-          </button>
+          </button>-->
           <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
             Remove
           </button>

@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
 import { AboutPage } from '../about/about';
-import { MapPage } from '../map/map';
-import { SchedulePage } from '../schedule/schedule';
-import { SpeakerListPage } from '../speaker-list/speaker-list';
+//import { MapPage } from '../map/map';
+import { InfoPage } from '../info/info';
+//import { SpeakerListPage } from '../speaker-list/speaker-list';
 import {RoadmapPage} from "../roadmap/roadmap";
 
 
@@ -14,7 +14,7 @@ import {RoadmapPage} from "../roadmap/roadmap";
 })
 export class TabsPage {
   // set the root pages for each tab
-  tab1Root: any = SchedulePage;
+  tab1Root: any = InfoPage;
   // tab2Root: any = SpeakerListPage;
   // tab3Root: any = MapPage;
   tab2Root: any = RoadmapPage;

@@ -1,0 +1,84 @@
+<ion-header no-border>
+  <ion-navbar color="purplish">
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="onSkip()" color="primary">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-slides (ionSlideWillChange)="onschange($event)" pager>
+
+    <ion-slide>
+      <img src="assets/img/Capture11.JPG" class="slide-image"/>
+     <!-- <h2 class="slide-title">
+        <b>WELCOME TO CRASH AREA ALERT ..</b>
+      </h2>
+      <h3> Accident spot notification application for best driving experience
+      </h3>-->
+      <p>
+         Terdapat pelbagai tanda isyarat lalulintas (Highway Code) yang terdapat di jalan raya. Bentuk dan warna menggambarkan fungsi yang berbeza bagi tiap-tiap satu papan tanda
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture2.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>AWAS/BERI TUMPUAN</b></h2>
+      <p>Pandu dengan berhati-hati kerana kemungkinan ada bahaya tertentu di hadapan jalan.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture3.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>HALANGAN DIHADAPAN</b></h2>
+      <p>Perlahankan kelajuan dan bersedia mengambil tindakan yang sesuai dengan halangan.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture4.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>BAHU JALAN LEMBUT</b></h2>
+      <p>Pandu dengan berhati-hati dan sentiasa berwaspada semasa hendak memotong dan menghampiri bahu jalan..</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture5.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>JALAN LICIN</b></h2>
+      <p>Perlahankan kenderaan, sangat merbahaya jika memotong dan memerlukan jarak yang selamat untuk berhenti dan mengekori kenderaan</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture6.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>JALAN BENGKANG BENGKOK</b></h2>
+      <p>Sentiasa berhati-hati dan perlahankan kenderaan ketika melalui kawasan ini. Dilarang memotong, bunyikan hon jika perlu dan nyalakan lampu tinggi jika perlu.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/Capture7.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>PERINGATAN DI ZON HAD LAJU</b></h2>
+      <p>Berhati-hati apabila tiba di kawasan ini, sentiasa mematuhi had laju yang telah ditetapkan dan tidak melebihi had laju. Kawasan yang selalu mempunyai isyarat ini adalah bandar, berhampiran sekolah dan kawasan yang kerap berlaku kemalangan</p>
+    </ion-slide>
+
+
+<ion-slide>
+      <img src="assets/img/Capture8.JPG" class="slide-image"/>
+      <h2 class="slide-title"><b>PAPAN TANDA MAKLUMAT</b></h2>
+      <p>Memberitahu pemandu / pengguna jalanraya sesuatu tempat, perkhidmatan dan kemudahan yang disediakan dan lain-lain. Disediakan samada dalam bentuk simbol atau perkataan. Kebiasaannya diletakkan di lokasi papan tanda mengikut keperluan.</p>
+    </ion-slide>
+
+
+    <!--<ion-slide>
+      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image"/>
+      <h2 class="slide-title">What is Ionic Platform?</h2>
+      <p>The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.</p>
+    </ion-slide>-->
+
+    <ion-slide>
+      <!--<img src="assets/img/lets go.png" class="slide-image"/>
+     <h2><b>Because you are worth it!</b></h2>-->
+      <button ion-button icon-right large clear (click)="onSkip()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

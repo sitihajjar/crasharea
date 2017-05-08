@@ -15,23 +15,22 @@ import { LoginPage } from "../login/login";
 })
 export class SignupPage {
   signup: {username?: string, password?: string} = {};
-  submitted = false;
+  submitted = true;
 
   constructor(public navCtrl: NavController, public userData: UserData, public globalService:GlobalService) {}
 
-  onSignup(form: NgForm) {
-    this.submitted = true;
+ onSignup(form: NgForm) {
+  this.submitted = true;
 
-    if (form.valid) {
-        this.globalService.signup(this.signup).subscribe((data:any)=>{
-        alert("Hi " + data.name);
-        this.navCtrl.push(LoginPage);
-      }, (error:any)=>{
+  if (form.valid) {
+    this.globalService.signup(this.signup).subscribe((data:any)=>{
+      alert("Thank you " + data.username + ". Please log in to use this application.");
+      this.navCtrl.push(LoginPage);
+    }, (error:any)=>{
 
-      });
-
-      /*this.userData.signup(this.signup.username);
-      this.navCtrl.push(TabsPage);*/
-    }
+    });
+    /*this.userData.signup(this.signup.username);
+     this.navCtrl.push(TabsPage);*/
   }
+}
 }

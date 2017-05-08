@@ -74,7 +74,7 @@ export class GlobalService {
       var requestData = ({
         username: signup.username,
         password: signup.password,
-        email: "hajjar@email.com",
+        //email: "hajjar@email.com",
       });
       // let headers = new Headers({'Content-Type': 'application/json'});
       // let options = new RequestOptions({headers: headers});
