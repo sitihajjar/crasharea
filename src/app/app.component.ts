@@ -47,7 +47,7 @@ export class ConferenceApp {
     // { title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
     {title: 'RoadMap', component: TabsPage, tabComponent: RoadmapPage, index: 1, icon: 'md-map'},
     {title: 'Info', component: TabsPage, tabComponent: InfoPage, icon: 'md-bulb'},
-    {title: 'About', component: TabsPage, tabComponent: AboutPage, icon: 'information-circle'},
+    {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
 
 
   ];

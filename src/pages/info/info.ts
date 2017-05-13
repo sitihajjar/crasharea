@@ -23,7 +23,7 @@ export class InfoPage {
   }
 
  onSkip() {
-    this.navCtrl.push(RoadmapPage).then(() => {
+    this.navCtrl.setRoot(RoadmapPage).then(() => {
       //this.storage.set('hasSeenTutorial', 'true');
     })
   }

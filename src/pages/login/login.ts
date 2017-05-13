@@ -29,9 +29,9 @@ export class LoginPage {
         alert(" Welcome " + data.username + ". Successfully logged in to Crash Area Alert Apps. Click OK to Continue.");
         //this.userData.setId(data.id);
         this.userData.login(data);
-        this.navCtrl.push(RoadmapPage);
+        this.navCtrl.setRoot(RoadmapPage);
       }else
-        alert("Ralat! Sila masukkan semula data.");
+        alert("Error ! Please enter the correct username and password.");
      },
      (error:any)=>{
 
