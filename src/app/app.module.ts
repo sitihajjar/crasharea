@@ -1,4 +1,6 @@
 import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
 import {IonicApp, IonicModule} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
@@ -19,6 +21,7 @@ import {SpeakerDetailPage} from '../pages/speaker-detail/speaker-detail';
 import {SpeakerListPage} from '../pages/speaker-list/speaker-list';
 import {TabsPage} from '../pages/tabs/tabs';
 import {TutorialPage} from '../pages/tutorial/tutorial';
+import {SettingsPage} from '../pages/settings/settings';
 //import {SupportPage} from '../pages/support/support';
 import {RoadmapPage} from '../pages/roadmap/roadmap';
 import {InfoPage} from '../pages/info/info';
@@ -27,6 +30,7 @@ import {GlobalService} from '../providers/global-service';
 import {LocationTracker} from '../providers/location-tracker';
 import {ConferenceData} from '../providers/conference-data';
 import {UserData} from '../providers/user-data';
+import {Setting} from '../providers/setting';
 import {LocalNotifications} from '@ionic-native/local-notifications';
 
 
@@ -40,19 +44,20 @@ import {LocalNotifications} from '@ionic-native/local-notifications';
     MapPage,
     PopoverPage,
     //SchedulePage,
-   // ScheduleFilterPage,
+    // ScheduleFilterPage,
     //SessionDetailPage,
     SignupPage,
     SpeakerDetailPage,
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-   //SupportPage,
+    //SupportPage,
     RoadmapPage,
     InfoPage,
+    SettingsPage
   ],
   imports: [
-    IonicModule.forRoot(ConferenceApp)
+    IonicModule.forRoot(ConferenceApp), BrowserModule, HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,9 +78,10 @@ import {LocalNotifications} from '@ionic-native/local-notifications';
     TutorialPage,
     //SupportPage,
     RoadmapPage,
-    InfoPage
+    InfoPage,
+    SettingsPage
   ],
-  providers: [ConferenceData, UserData, Storage, GlobalService, LocationTracker, LocalNotifications]
+  providers: [ConferenceData, UserData, Storage, GlobalService, Setting, LocationTracker, LocalNotifications]
 })
 export class AppModule {
 }

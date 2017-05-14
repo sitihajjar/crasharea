@@ -17,6 +17,7 @@ export class ConferenceData {
 
   load(): any {
     if (this.data) {
+      //noinspection TypeScriptUnresolvedFunction
       return Observable.of(this.data);
     } else {
       return this.http.get('assets/data/data.json')

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="purplish">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="logo">
+    <!--<img src="assets/img/login.jpg" alt="Ionic logo">-->
+  </div>
+
+  <form #settingForm="ngForm" novalidate>
+    <ion-list no-lines>
+      <ion-item>
+        <ion-label stacked color="primary">Enable Notification</ion-label>
+        <ion-checkbox [(ngModel)]="setting.enableNotification" name="enableNotification" #enableNotification="ngModel"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="primary">Warning Distance</ion-label>
+        <ion-input [(ngModel)]="setting.warningDistance" name="warningDistance" type="number" #warningDistance="ngModel" spellcheck="false" autocapitalize="off"
+                   required>
+        </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="warningDistance.valid || submitted == false" color="danger" padding-left>
+        Warning Distance is required
+      </p>
+
+    </ion-list>
+
+    <ion-row responsive-sm>
+      <ion-col >
+        <button ion-button color="purplish"(click)="onSave(settingForm)" type="submit" block>Save</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="onCancel()" color="danger" block>Cancel</button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

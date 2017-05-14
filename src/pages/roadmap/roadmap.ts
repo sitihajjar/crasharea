@@ -2,6 +2,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 
 import {ConferenceData} from '../../providers/conference-data';
 import {GlobalService} from '../../providers/global-service';
+import {Setting} from '../../providers/setting';
 
 import {Platform, Events} from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
@@ -10,6 +11,7 @@ import {LocationTracker} from '../../providers/location-tracker';
 import {Observable} from 'rxjs/Observable';
 import {Storage} from '@ionic/storage';
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {Observer} from "rxjs/Rx";
 
 declare var google:any;
 
@@ -35,14 +37,15 @@ export class RoadmapPage {
   markers:any = []; // Create a marker array to hold your markers
   locations:any = [];
 
-  constructor(public globalService:GlobalService, private localNotifications:LocalNotifications, public storage:Storage, public confData:ConferenceData, public platform:Platform, public locationTracker:LocationTracker, public events:Events) {
+  constructor(public globalService:GlobalService, public setting:Setting, private localNotifications:LocalNotifications, public storage:Storage, public confData:ConferenceData, public platform:Platform, public locationTracker:LocationTracker, public events:Events) {
   }
 
   ionViewDidLoad() {
     // this.getCurrentPosition();
     this.initialize();
-    this.setHotspotsPosition();
-    this.start();
+    this.setHotspotsPosition().subscribe((data:any)=>{
+      this.start();
+    });
   }
 
   initialize() {
@@ -72,7 +75,7 @@ export class RoadmapPage {
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: this.map,
-        animation: google.maps.Animation.DROP,
+        animation: null,//google.maps.Animation.DROP,
         title: location[0],
         zIndex: location[3],
         icon: location[4]
@@ -110,15 +113,15 @@ export class RoadmapPage {
         this.lat = parseFloat(lat);
         this.lng = parseFloat(lng);
 
-        //this.setHotspotsPosition();
-        // this.setCurrentPosition(this.lat, this.lng);
         this.locations = [
           ['You', this.lat, this.lng, 999, this.icons.blueDot]
         ];
-        this.setHotspotsPosition();
-        this.reloadMarkers();
-        this.determineStatus();
-        this.globalService.toast(this.lat + ", " + this.lng).present();
+        this.setHotspotsPosition().subscribe((data:any)=>{
+          this.reloadMarkers();
+          this.determineStatus();
+          //this.globalService.toast(this.lat + ", " + this.lng).present();
+        });
+        
       });
     });
   }
@@ -207,34 +210,40 @@ export class RoadmapPage {
   }
 
   setHotspotsPosition() {
-    this.mapEle = this.mapElement.nativeElement;
+    return Observable.create((observer:any)=> {
+      this.mapEle = this.mapElement.nativeElement;
 
-    this.locationTracker.getHotspots().subscribe((data:any)=> {
-      var infowindow = new google.maps.InfoWindow();
-      var marker:any, i:any;
+      this.locationTracker.getHotspots().subscribe((data:any)=> {
+        var infowindow = new google.maps.InfoWindow();
+        var marker:any, i:any;
 
-      data.forEach((location:any)=> {
-        this.locations.push(['Site ' + location.latitude + "," + location.longitude, location.latitude, location.longitude, 1, this.icons.carCrash]);
-        // Call set markers to re-add markers
-        // console.log(location.latitude, location.longitude);
-        /*marker = new google.maps.Marker({
-         position: new google.maps.LatLng(location.latitude, location.longitude),
-         map: this.map,
-         icon: this.icons.carCrash
-         });
+        data.forEach((location:any)=> {
+          this.locations.push(['Site ' + location.latitude + "," + location.longitude, location.latitude, location.longitude, 1, this.icons.carCrash]);
+          // Call set markers to re-add markers
+          // console.log(location.latitude, location.longitude);
+          /*marker = new google.maps.Marker({
+           position: new google.maps.LatLng(location.latitude, location.longitude),
+           map: this.map,
+           icon: this.icons.carCrash
+           });
 
-         google.maps.event.addListener(marker, 'click', (function (marker, i) {
-         return function () {
-         infowindow.setContent("Crash Area");
-         infowindow.open(this.map, marker);
-         }
-         })(marker, i));*/
+           google.maps.event.addListener(marker, 'click', (function (marker, i) {
+           return function () {
+           infowindow.setContent("Crash Area");
+           infowindow.open(this.map, marker);
+           }
+           })(marker, i));*/
+        });
+
+        this.setMarkers(this.locations);
+        observer.next(data);
+        observer.complete();
+      }, (error:any)=> {
+        console.log(error);
+        observer.next(error);
+        observer.complete();
       });
-    }, (error:any)=> {
-      console.log(error);
     });
-
-    this.setMarkers(this.locations);
 
   }
 
@@ -253,16 +262,24 @@ export class RoadmapPage {
 
         var distance = this.locationTracker.getDistance(position1, position2);
         // trigger notification if distance below limit
-        if (distance < 1000) {// 1000 meter
-          this.localNotifications.schedule({
-            id: 1,
-            text: 'Be careful, You are approaching the accident area.',
-            sound: this.platform.is('android') ? 'file://sound.mp3' : 'file://beep.caf',
-            at: new Date(new Date().getTime() + 3600),
-            led: 'FF0000',
-            // data: {secret: key}
-          });
-        }
+
+        this.setting.getEnableNotification().then((status:any)=> {
+          if (status)
+            this.setting.getWarningDistance().then((distanceData:number)=> {
+              if (distance < distanceData) {// distance meter
+                this.globalService.toast("Distance to hotspot is " + distance.toFixed(2) + " meter(s)").present();
+                this.localNotifications.schedule({
+                  id: 1,
+                  text: 'Be careful, You are approaching the accident area.',
+                  // sound: this.platform.is('android') ? 'file://sound.mp3' : 'file://beep.caf',
+                  // at: new Date(new Date().getTime() + 3600),
+                  led: 'FF0000',
+                  // data: {secret: key}
+                });
+              }
+            });
+        });
+
       });
     }, (error:any)=> {
       console.log(error);

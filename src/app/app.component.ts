@@ -14,6 +14,7 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {TutorialPage} from '../pages/tutorial/tutorial';
 import {SchedulePage} from '../pages/schedule/schedule';
 import {SpeakerListPage} from '../pages/speaker-list/speaker-list';
+import {SettingsPage} from '../pages/settings/settings';
 import {SupportPage} from '../pages/support/support';
 import {RoadmapPage} from '../pages/roadmap/roadmap';
 import {InfoPage} from '../pages/info/info';
@@ -48,6 +49,7 @@ export class ConferenceApp {
     {title: 'RoadMap', component: TabsPage, tabComponent: RoadmapPage, index: 1, icon: 'md-map'},
     {title: 'Info', component: TabsPage, tabComponent: InfoPage, icon: 'md-bulb'},
     {title: 'About', component: TabsPage, tabComponent: AboutPage, index: 2, icon: 'information-circle'},
+    {title: 'Setting', component: SettingsPage, icon: 'md-settings'},
 
 
   ];
