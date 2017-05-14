@@ -8,22 +8,21 @@
 </ion-header>
 
 <ion-content>
-  <div class="logo">
-    <!--<img src="assets/img/login.jpg" alt="Ionic logo">-->
-  </div>
-
   <form #settingForm="ngForm" novalidate>
     <ion-list no-lines>
       <ion-item>
         <ion-label stacked color="primary">Enable Notification</ion-label>
-        <ion-checkbox [(ngModel)]="setting.enableNotification" name="enableNotification" #enableNotification="ngModel"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="setting.enableNotification" name="enableNotification"
+                      #enableNotification="ngModel"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked color="primary">Warning Distance</ion-label>
-        <ion-input [(ngModel)]="setting.warningDistance" name="warningDistance" type="number" #warningDistance="ngModel" spellcheck="false" autocapitalize="off"
-                   required>
-        </ion-input>
+        <ion-label stacked color="primary">Warning Distance (Meter)</ion-label>
+        <ion-range min="1000" max="10000" [(ngModel)]="setting.warningDistance" name="warningDistance"
+                   #warningDistance="ngModel" color="secondary" required>
+          <ion-label range-left>1000</ion-label>
+          <ion-label range-right>10000</ion-label>
+        </ion-range>
       </ion-item>
       <p ion-text [hidden]="warningDistance.valid || submitted == false" color="danger" padding-left>
         Warning Distance is required
@@ -32,8 +31,8 @@
     </ion-list>
 
     <ion-row responsive-sm>
-      <ion-col >
-        <button ion-button color="purplish"(click)="onSave(settingForm)" type="submit" block>Save</button>
+      <ion-col>
+        <button ion-button color="purplish" (click)="onSave(settingForm)" type="submit" block>Save</button>
       </ion-col>
       <ion-col>
         <button ion-button (click)="onCancel()" color="danger" block>Cancel</button>
