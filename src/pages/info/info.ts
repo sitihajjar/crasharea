@@ -27,7 +27,8 @@ export class InfoPage {
       //this.storage.set('hasSeenTutorial', 'true');
     })
   }
-  onschange(slider: Slides) {
+
+  onchange(slider: Slides) {
     this.showSkip = !slider.isEnd();
   }
 
